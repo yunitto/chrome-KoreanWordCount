@@ -1,1 +1,1 @@
-# wordCount-Korean
+# chrome-KoreanWordCount
