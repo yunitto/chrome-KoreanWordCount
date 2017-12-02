@@ -5,7 +5,9 @@
     <style>
       body{
         width:400px;
-        padding:1rem;
+        height:auto;
+        padding-right:1rem;
+        padding-left:1rem;
       }
       textarea{
         width:100%;
@@ -14,9 +16,10 @@
     </style>
   </head>
   <body>
-    <h1>글자수 세기</h1>
+    <h2>글자수 세기</h2> 
     <textarea id="userInput" rows="3" placeholder="텍스트를 입력하세요."></textarea>
+    <p style="text-align:right;">*한글은 약 4000자, 영어는 8000자 까지만 자동저장됩니다.</p>
     <div id="result" style="font-size:1rem; text-align:right; margin-top: 10px;">0 자</div>
-    <script src="script.js"></script> 
+    <script src="script.js"></script>
   </body>
 </html>
