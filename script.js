@@ -1,8 +1,8 @@
 window.onload = function(){
   chrome.storage.sync.get(function(saved){
-      document.getElementById('userInput').value = saved.data;
-      countWords(saved.data);
-      textAreaResize(saved.data);
+    document.getElementById('userInput').value = saved.data;
+    countWords(saved.data);
+    textAreaResize();
   });
 };
 
@@ -20,7 +20,7 @@ function textAreaResize(){
 document.getElementById('userInput').oninput = function(){
   var user_words = document.getElementById('userInput').value;
   countWords(user_words);
-  textAreaResize(user_words);
+  textAreaResize();
   chrome.storage.sync.set({
     data:user_words
    });
