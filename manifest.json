@@ -3,7 +3,7 @@
 
   "name": "한국어 글자수 세기",
   "description": "한국어 글자수를 셀 수 있습니다.",
-  "version": "2.1",
+  "version": "2.2",
   "browser_action": {
     "default_icon": "icon.png",
     "default_popup": "popup.html"

@@ -1,14 +1,18 @@
 window.onload = function(){
   chrome.storage.sync.get(function(saved){
-    document.getElementById('userInput').value = saved.data;
-    countWords(saved.data);
+    saved_data = saved.data
+    if (saved_data === undefined){
+      saved_data = ''
+    }
+    document.getElementById('userInput').value = saved_data;
+    countWords(saved_data);
     textAreaResize();
   });
 };
 
 function countWords(user_words){
   var length = user_words.length;
-  document.getElementById('result').innerText = length + " 자";
+  document.getElementById('result').innerText = length + ' 자';
 };
 
 function textAreaResize(){
@@ -22,6 +26,6 @@ document.getElementById('userInput').oninput = function(){
   countWords(user_words);
   textAreaResize();
   chrome.storage.sync.set({
-    data:user_words
+    'data': user_words
    });
 };
