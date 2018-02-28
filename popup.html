@@ -13,13 +13,26 @@
         width:100%;
         font-size:1rem;
       }
+      #result {
+        font-size:1rem;
+        text-align:right;
+        margin-top: 10px;
+      }
+      #clearBtn {
+        width: 80%;
+        text-align: center;
+        font-size: 1rem;
+        margin: 20px auto;
+        display: block;
+      }
     </style>
   </head>
   <body>
-    <h2>글자수 세기</h2> 
+    <h2>글자수 세기</h2>
     <textarea id="userInput" height=auto placeholder="텍스트를 입력하세요."></textarea>
     <p style="text-align:right;">*한글은 약 4000자, 영어는 8000자 까지 자동저장됩니다.</p>
-    <div id="result" style="font-size:1rem; text-align:right; margin-top: 10px;">0 자</div>
+    <div id="result">0 자</div>
+    <input type="button" id="clearBtn" value="clear"/>
     <script src="script.js"></script>
   </body>
 </html>
