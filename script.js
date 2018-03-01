@@ -1,10 +1,13 @@
+var userInput = document.getElementById('userInput');
+var clearBtn = document.getElementById('clearBtn');
+
 window.onload = function(){
   chrome.storage.sync.get(function(saved){
-    saved_data = saved.data
+    saved_data = saved.data;
     if (saved_data === undefined){
-      saved_data = ''
+      saved_data = '';
     }
-    document.getElementById('userInput').value = saved_data;
+    userInput.value = saved_data;
     countWords(saved_data);
     textAreaResize();
   });
@@ -19,13 +22,18 @@ function textAreaResize(){
   var text_area = document.getElementById('userInput');
   text_area.style.height = 'auto';
   text_area.style.height = (text_area.scrollHeight) + 'px';
+  chrome.storage.sync.set({
+    'data': userInput.value
+   });
 };
 
-document.getElementById('userInput').oninput = function(){
-  var user_words = document.getElementById('userInput').value;
-  countWords(user_words);
+clearBtn.addEventListener('click', function(event){
+  userInput.value = '';
+  countWords(userInput.value);
   textAreaResize();
-  chrome.storage.sync.set({
-    'data': user_words
-   });
+});
+
+userInput.oninput = function(){
+  countWords(userInput.value);
+  textAreaResize();
 };
