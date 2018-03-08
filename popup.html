@@ -18,12 +18,12 @@
         text-align:right;
         margin-top: 10px;
       }
-      #clearBtn {
-        width: 80%;
+      .btn-group .button {
+        float: right;
+        width: 50%;
         text-align: center;
         font-size: 1rem;
         margin: 20px auto;
-        display: block;
       }
     </style>
   </head>
@@ -32,7 +32,10 @@
     <textarea id="userInput" height=auto placeholder="텍스트를 입력하세요."></textarea>
     <p style="text-align:right;">*한글은 약 4000자, 영어는 8000자 까지 자동저장됩니다.</p>
     <div id="result">0 자</div>
-    <input type="button" id="clearBtn" value="clear"/>
+    <div class="btn-group">
+      <button class="button" id="copyBtn">복사하기</button>
+      <button class="button" id="clearBtn">지우기</button>
+    </div>
     <script src="script.js"></script>
   </body>
 </html>

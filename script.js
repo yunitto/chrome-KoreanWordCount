@@ -1,5 +1,6 @@
 var userInput = document.getElementById('userInput');
 var clearBtn = document.getElementById('clearBtn');
+var copyBtn = document.getElementById('copyBtn');
 
 window.onload = function(){
   chrome.storage.sync.get(function(saved){
@@ -31,6 +32,12 @@ clearBtn.addEventListener('click', function(event){
   userInput.value = '';
   countWords(userInput.value);
   textAreaResize();
+});
+
+copyBtn.addEventListener('click', function(event){
+  var copyText = document.getElementById('userInput')
+  copyText.select();
+  document.execCommand("Copy");
 });
 
 userInput.oninput = function(){
