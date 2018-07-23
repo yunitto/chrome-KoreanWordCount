@@ -9,4 +9,4 @@
 [크롬 웹 스토어](https://chrome.google.com/webstore/detail/%ED%95%9C%EA%B5%AD%EC%96%B4-%EA%B8%80%EC%9E%90%EC%88%98-%EC%84%B8%EA%B8%B0/hgnnllcclhhigideaknjkbbmnokfocgd?hl=ko) 에서 설치할 수 있습니다.
 
 # Credits
-Icon made by [Silviu Runceanu](https://www.flaticon.com/authors/silviu-runceanu) from [Flaticon](www.flaticon.com) 
+Icon made by [Silviu Runceanu](https://www.flaticon.com/authors/silviu-runceanu) from [Flaticon](https://www.flaticon.com) 
