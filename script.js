@@ -1,6 +1,6 @@
-var userInput = document.getElementById('userInput');
-var clearBtn = document.getElementById('clearBtn');
-var copyBtn = document.getElementById('copyBtn');
+var userInput = document.getElementById('user-input');
+var clearBtn = document.getElementById('clear-button');
+var copyBtn = document.getElementById('copy-button');
 
 window.onload = function(){
   chrome.storage.sync.get(function(saved){
@@ -22,7 +22,7 @@ function countWords(userWords){
 };
 
 function textAreaResize(){
-  var textArea = document.getElementById('userInput');
+  var textArea = document.getElementById('user-input');
   textArea.style.height = 'auto';
   textArea.style.height = (textArea.scrollHeight) + 'px';
   chrome.storage.sync.set({
@@ -49,7 +49,7 @@ function syncStorage(userInput){
 }
 
 clearBtn.addEventListener('click', function(event){
-  var deleteText = document.getElementById('userInput')
+  var deleteText = document.getElementById('user-input')
   deleteText.select()
   document.execCommand("delete")
   countWords(userInput.value);
@@ -57,7 +57,7 @@ clearBtn.addEventListener('click', function(event){
 });
 
 copyBtn.addEventListener('click', function(event){
-  var copyText = document.getElementById('userInput')
+  var copyText = document.getElementById('user-input')
   copyText.select();
   document.execCommand("Copy");
 });
