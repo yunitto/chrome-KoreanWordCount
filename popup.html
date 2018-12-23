@@ -11,6 +11,8 @@
       }
       textarea{
         width:100%;
+        height: auto;
+        max-height: 400px;
         font-size:1rem;
       }
       #result {
@@ -19,17 +21,18 @@
         margin-top: 10px;
       }
     </style>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   </head>
   <body>
-    <h2 class="my-3">글자수 세기</h2>
-    <textarea class="form-control" id="userInput" height="auto" placeholder="텍스트를 입력하세요."></textarea>
+    <h5 class="my-3">글자수 세기</h5>
+    <textarea class="form-control" id="userInput" placeholder="텍스트를 입력하세요."></textarea>
     <div class="my-1" style="text-align:right; font-size: 0.8em;">*한글은 약 4000자, 영어는 8000자 까지 자동저장됩니다.</div>
-    <div id="result">0 자</div>
-<div class="container row p-0 m-0 btn-group">
+    <div id="result-space" style="text-align:right">공백 포함 0 자</div>
+    <div id="result-no-space" style="text-align:right">공백 제외 0 자</div>
+  <div class="btn-toolbar">
       <button class="btn btn-primary m-auto w-50" id="copyBtn">복사하기</button>
       <button class="btn btn-danger m-auto w-50" id="clearBtn">지우기</button>
-</div>
+  </div>
     <script src="script.js"></script>
   </body>
 </html>
