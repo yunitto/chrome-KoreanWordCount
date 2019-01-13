@@ -2,6 +2,12 @@ var userInput = document.getElementById('user-input');
 var clearButton = document.getElementById('clear-button');
 var copyButton = document.getElementById('copy-button');
 
+userInput.oninput = function () {
+  countWords(userInput.value);
+  textAreaResize();
+  syncStorage(userInput.value);
+};
+
 copyButton.addEventListener('click', function (event) {
   userInput.select();
   document.execCommand('Copy');
@@ -11,22 +17,14 @@ clearButton.addEventListener('click', function (event) {
   userInput.select();
   document.execCommand('delete');
   countWords(userInput.value);
+  chrome.storage.sync.clear();
   textAreaResize();
 });
 
-userInput.oninput = function () {
-  countWords(userInput.value);
-  textAreaResize();
-};
-
 window.onload = function () {
-  chrome.storage.sync.get(function (saved) {
-    savedData = saved.data;
-    if (savedData === undefined) {
-      savedData = '';
-    }
-    userInput.value = savedData;
-    countWords(savedData);
+  chrome.storage.sync.get(function (segments) {
+    userInput.value = Object.values(segments).join('');
+    countWords(userInput.value);
     textAreaResize();
   });
 };
@@ -42,25 +40,17 @@ function textAreaResize() {
   var textArea = document.getElementById('user-input');
   textArea.style.height = 'auto';
   textArea.style.height = `${textArea.scrollHeight}px`;
-  chrome.storage.sync.set({
-    'data': userInput.value
-   });
 };
 
 function syncStorage(userInput){
-  var segments = {}
-  var k = 0, v, idx = 0;
-  while(userInput > 0){
-    var length = chrome.storage.sync.QUOTA_BYTES_PER_ITEM - k.toString.length - 1;
-    v = userInput.substring(idx, idx + length);
-    var overflow = JSON.stringify(v).length - chrome.storage.sync.QUOTA_BYTES_PER_ITEM
-    if (overflow > 0){
-      length = length - overflow
-    }
+  function splitByLength (str, length) {
+    return str.match(new RegExp(`(.|[\r\n]){1,${length}}`, 'g'));
+  };
 
-    segments[k] = v;
-    userInput = userInput.substring(idx + length + 1)
-    k++;
-  }
+  const itemSize = chrome.storage.sync.QUOTA_BYTES_PER_ITEM / 4
+  const chunks = splitByLength(userInput, itemSize);
+  const segments = Object.assign({}, chunks);
+  console.log(segments);
+
   chrome.storage.sync.set(segments)
 };
