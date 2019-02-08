@@ -10,20 +10,24 @@ userInput.oninput = function () {
 
 copyButton.addEventListener('click', function (event) {
   userInput.select();
-  document.execCommand('Copy');
+  document.execCommand('copy');
 });
 
 clearButton.addEventListener('click', function (event) {
   userInput.select();
   document.execCommand('delete');
   countWords(userInput.value);
-  chrome.storage.sync.clear();
+  chrome.storage.local.clear();
   textAreaResize();
 });
 
 window.onload = function () {
-  chrome.storage.sync.get(function (segments) {
-    userInput.value = Object.values(segments).join('');
+  chrome.storage.local.get('words', function (item) {
+    if (item.words === undefined) {
+      userInput.value = '';
+    } else {
+      userInput.value = item.words;
+    }
     countWords(userInput.value);
     textAreaResize();
   });
@@ -43,14 +47,5 @@ function textAreaResize() {
 };
 
 function syncStorage(userInput){
-  function splitByLength (str, length) {
-    return str.match(new RegExp(`(.|[\r\n]){1,${length}}`, 'g'));
-  };
-
-  const itemSize = chrome.storage.sync.QUOTA_BYTES_PER_ITEM / 4
-  const chunks = splitByLength(userInput, itemSize);
-  const segments = Object.assign({}, chunks);
-  console.log(segments);
-
-  chrome.storage.sync.set(segments)
+  chrome.storage.local.set({'words': userInput});
 };
