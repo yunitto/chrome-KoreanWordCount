@@ -1,46 +1,51 @@
-var userInput = document.getElementById('userInput');
-var clearBtn = document.getElementById('clearBtn');
-var copyBtn = document.getElementById('copyBtn');
+var userInput = document.getElementById('user-input');
+var clearButton = document.getElementById('clear-button');
+var copyButton = document.getElementById('copy-button');
 
-window.onload = function(){
-  chrome.storage.sync.get(function(saved){
-    saved_data = saved.data;
-    if (saved_data === undefined){
-      saved_data = '';
+userInput.oninput = function () {
+  countWords(userInput.value);
+  textAreaResize();
+  syncStorage(userInput.value);
+};
+
+copyButton.addEventListener('click', function (event) {
+  userInput.select();
+  document.execCommand('copy');
+});
+
+clearButton.addEventListener('click', function (event) {
+  userInput.select();
+  document.execCommand('delete');
+  countWords(userInput.value);
+  chrome.storage.local.clear();
+  textAreaResize();
+});
+
+window.onload = function () {
+  chrome.storage.local.get('words', function (item) {
+    if (item.words === undefined) {
+      userInput.value = '';
+    } else {
+      userInput.value = item.words;
     }
-    userInput.value = saved_data;
-    countWords(saved_data);
+    countWords(userInput.value);
     textAreaResize();
   });
 };
 
-function countWords(user_words){
-  var length = user_words.length;
-  document.getElementById('result').innerText = length + ' 자';
+function countWords(userWords) {
+  var length = userWords.length;
+  var lengthNoSpace = userWords.replace(/\s/g,'').length;
+  document.getElementById('result-space').innerText = `공백 포함 ${length} 자`;
+  document.getElementById('result-no-space').innerText = `공백 제외 ${lengthNoSpace} 자`;
 };
 
-function textAreaResize(){
-  var text_area = document.getElementById('userInput');
-  text_area.style.height = 'auto';
-  text_area.style.height = (text_area.scrollHeight) + 'px';
-  chrome.storage.sync.set({
-    'data': userInput.value
-   });
+function textAreaResize() {
+  var textArea = document.getElementById('user-input');
+  textArea.style.height = 'auto';
+  textArea.style.height = `${textArea.scrollHeight}px`;
 };
 
-clearBtn.addEventListener('click', function(event){
-  userInput.value = '';
-  countWords(userInput.value);
-  textAreaResize();
-});
-
-copyBtn.addEventListener('click', function(event){
-  var copyText = document.getElementById('userInput')
-  copyText.select();
-  document.execCommand("Copy");
-});
-
-userInput.oninput = function(){
-  countWords(userInput.value);
-  textAreaResize();
+function syncStorage(userInput){
+  chrome.storage.local.set({'words': userInput});
 };
